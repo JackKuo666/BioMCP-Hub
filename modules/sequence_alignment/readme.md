@@ -1,4 +1,4 @@
-✅ **已生成 BioMCP-Hub 的序列比对模块 (`sequence_alignment.py`)**，支持：
+✅ **BioMCP-Hub 的序列比对模块 (`sequence_alignment.py`)**，支持：
 - **BLAST 比对**（对接 NCBI BLAST 数据库）
 - **Clustal Omega**（进行多序列比对）
 
