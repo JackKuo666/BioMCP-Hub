@@ -1,4 +1,4 @@
-✅ ** BioMCP-Hub 的基因组分析模块 (`genome_analysis.py`)**，支持：
+✅ **BioMCP-Hub 的基因组分析模块 (`genome_analysis.py`)**，支持：
 - **基因组组装**（使用 **SPAdes** 进行 de novo 组装）
 - **基因组注释**（使用 **Prokka** 进行基因功能注释）
 - **变异检测**（使用 **bcftools** 进行突变检测）
