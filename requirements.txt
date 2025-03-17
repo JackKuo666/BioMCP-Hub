@@ -1,0 +1,27 @@
+# Python dependencies for BioMCP-Hub
+
+# Core API and Web Framework
+fastapi
+uvicorn
+
+# Bioinformatics tools integration
+ete3  # For phylogenetic tree visualization
+biopython  # For sequence processing
+pandas  # Data processing
+numpy  # Numerical computations
+matplotlib  # Data visualization
+seaborn  # Statistical plots
+
+# File handling and system utilities
+requests  # HTTP API requests
+pathlib  # File path handling
+subprocess  # Running external commands
+
+# Optional dependencies for advanced features
+scipy  # Scientific computations
+scikit-learn  # Machine learning models
+bcftools  # Variant calling
+prokka  # Genome annotation
+spades  # Genome assembly
+clustalo  # Sequence alignment
+blast  # BLAST sequence search
