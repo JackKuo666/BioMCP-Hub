@@ -3,11 +3,13 @@
 import requests
 import os
 from fastapi import FastAPI, HTTPException, Query
+from typing import Dict
 
 app = FastAPI(title="BioMCP-Hub Literature Search", description="Retrieve literature from bioRxiv, medRxiv, and PubMed", version="1.0")
 
 # Configuration
 PUBMED_API_URL = "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi"
+PUBMED_FETCH_URL = "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi"
 BIOARXIV_API_URL = "https://api.biorxiv.org/covid19"
 MEDRXIV_API_URL = "https://api.medrxiv.org/covid19"
 
@@ -24,6 +26,20 @@ def search_pubmed(query: str = Query(..., description="Search query for PubMed")
     if response.status_code != 200:
         raise HTTPException(status_code=response.status_code, detail="PubMed API request failed")
     return response.json()
+
+@app.get("/fetch/pubmed")
+def fetch_pubmed(pmid: str = Query(..., description="PubMed article ID (PMID)")):
+    """Fetch full text or abstract from PubMed using PMID."""
+    params = {
+        "db": "pubmed",
+        "id": pmid,
+        "retmode": "text",
+        "rettype": "abstract"
+    }
+    response = requests.get(PUBMED_FETCH_URL, params=params)
+    if response.status_code != 200:
+        raise HTTPException(status_code=response.status_code, detail="PubMed fetch request failed")
+    return {"pmid": pmid, "abstract": response.text}
 
 @app.get("/search/biorxiv")
 def search_biorxiv(query: str = Query(..., description="Search query for bioRxiv")):
