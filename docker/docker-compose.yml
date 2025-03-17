@@ -1,0 +1,63 @@
+# Docker Compose configuration for BioMCP-Hub
+
+version: '3.8'
+
+services:
+  mcp-hub:
+    image: biomcp-hub
+    build: .
+    container_name: biomcp-hub
+    ports:
+      - "5000:5000"
+    volumes:
+      - ./modules:/app/modules
+      - ./uploads:/app/uploads
+    environment:
+      - MCP_HUB_PORT=5000
+    restart: always
+
+  sequence-alignment:
+    image: biomcp-seqalign
+    build: ./modules/sequence_alignment
+    container_name: biomcp-seqalign
+    ports:
+      - "5060:5060"
+    volumes:
+      - ./uploads:/app/uploads
+    environment:
+      - BLAST_DB_PATH=/usr/local/blast/db
+    restart: always
+
+  genome-analysis:
+    image: biomcp-genome
+    build: ./modules/genome_analysis
+    container_name: biomcp-genome
+    ports:
+      - "5070:5070"
+    volumes:
+      - ./uploads:/app/uploads
+    environment:
+      - GENOME_ASSEMBLER=/usr/bin/spades.py
+      - VARIANT_CALLER=/usr/bin/bcftools
+      - GENOME_ANNOTATOR=/usr/bin/prokka
+    restart: always
+
+  literature-search:
+    image: biomcp-litsearch
+    build: ./modules/data_search
+    container_name: biomcp-litsearch
+    ports:
+      - "5050:5050"
+    environment:
+      - PUBMED_API_KEY=your_api_key
+    restart: always
+
+  visualization:
+    image: biomcp-visualization
+    build: ./modules/visualization
+    container_name: biomcp-visualization
+    ports:
+      - "5080:5080"
+    volumes:
+      - ./visualizations:/app/visualizations
+    restart: always
