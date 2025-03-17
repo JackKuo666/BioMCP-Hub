@@ -1,0 +1,26 @@
+# Ignore Python cache files
+__pycache__/
+*.pyc
+*.pyo
+
+# Virtual environment
+venv/
+.env
+
+# Logs and temp files
+logs/
+*.log
+
+# Data files
+uploads/
+visualizations/
+
+# Docker-related files
+docker-compose.override.yml
+
+# Jupyter notebooks
+.ipynb_checkpoints/
+
+# Ignore system files
+.DS_Store
+Thumbs.db
